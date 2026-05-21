@@ -1,69 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-  <title>Class Agent</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100dvh;display:flex;flex-direction:column}
-    header{padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e2e}
-    .logo{font-size:18px;font-weight:700;color:#c084fc}.logo span{color:#38bdf8}
-    .dot{width:10px;height:10px;border-radius:50%;background:#334155;transition:background .3s}
-    .dot.on{background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pulse 1.5s infinite}
-    .dot.busy{background:#f59e0b;box-shadow:0 0 8px #f59e0b}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-    .setup{padding:24px 20px;display:flex;flex-direction:column;gap:14px}
-    .setup h2{font-size:15px;color:#94a3b8;font-weight:500}
-    .err{background:#7f1d1d;border:1px solid #ef4444;border-radius:8px;padding:10px 12px;font-size:13px;color:#fca5a5;display:none}
-    input{width:100%;background:#141420;border:1px solid #2d2d44;border-radius:10px;padding:12px 14px;color:#e0e0e0;font-size:16px;outline:none;-webkit-appearance:none;autocorrect:off;autocapitalize:off;spellcheck:false}
-    input:focus{border-color:#7c3aed}
-    .btn{width:100%;padding:16px;border-radius:12px;border:none;font-size:17px;font-weight:700;-webkit-appearance:none;cursor:pointer}
-    .btnp{background:#7c3aed;color:#fff}
-    .btns{background:#ef4444;color:#fff}
-    .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-    .ctrl{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
-    .mstat{font-size:14px;color:#64748b}.mstat.on{color:#22c55e}
-    .tbox{margin:0 20px;background:#0f0f1a;border:1px solid #1e1e2e;border-radius:12px;padding:14px;font-size:13px;line-height:1.6;color:#94a3b8;overflow-y:auto;max-height:180px;min-height:60px}
-    .tbox .live{color:#c084fc;font-style:italic}
-    .tsec{padding:16px 20px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
-    .tsec h3{font-size:12px;color:#475569;text-transform:uppercase;letter-spacing:.8px;font-weight:600}
-    .card{background:#0f0f1a;border:1px solid #2d2d44;border-radius:12px;padding:14px;animation:si .3s ease}
-    .card.alert{border-color:#f59e0b}.card.done{border-color:#22c55e}
-    @keyframes si{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .card .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;color:#f59e0b}
-    .card.done .tag{color:#22c55e}
-    .card .body{font-size:13px;color:#94a3b8;line-height:1.6;white-space:pre-wrap}
-    .card .acts{display:flex;gap:8px;margin-top:10px}
-    .bsm{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;font-weight:700;-webkit-appearance:none}
-    .bsm.ok{background:#16a34a;color:#fff}.bsm.no{background:#1e1e2e;color:#94a3b8}
-    .empty{text-align:center;color:#334155;font-size:14px;padding:30px 0}
-    .hidden{display:none!important}
-    .sl{text-align:center;padding:12px;font-size:12px;color:#334155;text-decoration:underline;cursor:pointer}
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>Class Agent</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100dvh;display:flex;flex-direction:column}
+header{padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e2e}
+.logo{font-size:18px;font-weight:700;color:#c084fc}.logo span{color:#38bdf8}
+.dot{width:10px;height:10px;border-radius:50%;background:#334155;transition:background .3s}
+.dot.on{background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pulse 1.5s infinite}
+.dot.busy{background:#f59e0b;box-shadow:0 0 8px #f59e0b}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.setup{padding:24px 20px;display:flex;flex-direction:column;gap:14px}
+.setup h2{font-size:15px;color:#94a3b8;font-weight:500}
+.err{background:#7f1d1d;border:1px solid #ef4444;border-radius:8px;padding:10px 12px;font-size:13px;color:#fca5a5;display:none}
+input{width:100%;background:#141420;border:1px solid #2d2d44;border-radius:10px;padding:12px 14px;color:#e0e0e0;font-size:16px;outline:none;-webkit-appearance:none}
+input:focus{border-color:#7c3aed}
+.btn{width:100%;padding:16px;border-radius:12px;border:none;font-size:17px;font-weight:700;-webkit-appearance:none;cursor:pointer}
+.btnp{background:#7c3aed;color:#fff}.btns{background:#ef4444;color:#fff}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.ctrl{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.mstat{font-size:14px;color:#64748b}.mstat.on{color:#22c55e}
+.tbox{margin:0 20px;background:#0f0f1a;border:1px solid #1e1e2e;border-radius:12px;padding:14px;font-size:13px;line-height:1.6;color:#94a3b8;overflow-y:auto;max-height:180px;min-height:60px}
+.tbox .live{color:#c084fc;font-style:italic}
+.tsec{padding:16px 20px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
+.tsec h3{font-size:12px;color:#475569;text-transform:uppercase;letter-spacing:.8px;font-weight:600}
+.card{background:#0f0f1a;border:1px solid #2d2d44;border-radius:12px;padding:14px;animation:si .3s ease}
+.card.alert{border-color:#f59e0b}.card.done{border-color:#22c55e}
+@keyframes si{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;color:#f59e0b}
+.card.done .tag{color:#22c55e}
+.card .body{font-size:13px;color:#94a3b8;line-height:1.6;white-space:pre-wrap}
+.card .acts{display:flex;gap:8px;margin-top:10px}
+.bsm{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;font-weight:700;-webkit-appearance:none}
+.bsm.ok{background:#16a34a;color:#fff}.bsm.no{background:#1e1e2e;color:#94a3b8}
+.empty{text-align:center;color:#334155;font-size:14px;padding:30px 0}
+.hidden{display:none!important}
+.sl{text-align:center;padding:12px;font-size:12px;color:#334155;text-decoration:underline;cursor:pointer}
+</style>
 </head>
 <body>
 <header><div class="logo">Class<span>Agent</span></div><div class="dot" id="dot"></div></header>
 
 <div class="setup" id="setup">
-  <h2>Ingresa tu API Key de Anthropic</h2>
-  <div class="err" id="err">Ingresa una API key válida (empieza con sk-ant-)</div>
-  <input id="key" type="text" placeholder="sk-ant-api03-..." autocorrect="off" autocapitalize="off" spellcheck="false"/>
-  <input id="kw" type="text" value="tarea, entregar, trabajo, presentacion, investigacion, informe, para el lunes, para manana, fecha limite" autocorrect="off"/>
-  <button class="btn btnp" id="saveBtn">Guardar y comenzar</button>
+<h2>Ingresa tu API Key de Anthropic</h2>
+<div class="err" id="err">API key invalida (debe empezar con sk-ant-)</div>
+<input id="key" type="text" placeholder="sk-ant-api03-..." autocorrect="off" autocapitalize="none" spellcheck="false"/>
+<input id="kw" type="text" value="tarea, entregar, trabajo, presentacion, investigacion, informe, para el lunes, para manana, fecha limite" autocorrect="off" autocapitalize="none"/>
+<button class="btn btnp" id="saveBtn">Guardar y comenzar</button>
 </div>
 
 <div class="main hidden" id="main">
-  <div class="ctrl">
-    <div class="mstat" id="ms">Microfono pausado</div>
-    <button class="btn btnp" id="lb" onclick="toggle()">🎙 Empezar a escuchar</button>
-  </div>
-  <div class="tbox" id="tb"><span style="color:#334155">Transcripcion aqui...</span></div>
-  <div class="tsec">
-    <h3>Tareas detectadas</h3>
-    <div id="tl"><div class="empty">Ninguna tarea aun 👂</div></div>
-  </div>
-  <div class="sl" onclick="goSetup()">⚙ Cambiar API key</div>
+<div class="ctrl">
+<div class="mstat" id="ms">Microfono pausado</div>
+<button class="btn btnp" id="lb">&#127897; Empezar a escuchar</button>
+</div>
+<div class="tbox" id="tb"><span style="color:#334155">Transcripcion aqui...</span></div>
+<div class="tsec">
+<h3>Tareas detectadas</h3>
+<div id="tl"><div class="empty">Ninguna tarea aun &#128;&#130;</div></div>
+</div>
+<div class="sl" id="sl">&#9881; Cambiar API key</div>
 </div>
 
 <script>
@@ -81,52 +80,56 @@ document.getElementById('saveBtn').addEventListener('click',function(){
   document.getElementById('main').classList.remove('hidden');
 });
 
-function goSetup(){stop2();document.getElementById('main').classList.add('hidden');document.getElementById('setup').classList.remove('hidden');}
+document.getElementById('lb').addEventListener('click',function(){if(on)stop2();else start();});
+document.getElementById('sl').addEventListener('click',function(){goSetup();});
 
-function toggle(){if(on)stop2();else start();}
+function goSetup(){stop2();document.getElementById('main').classList.add('hidden');document.getElementById('setup').classList.remove('hidden');}
 
 function start(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Usa Safari en iPhone');return;}
+  if(!SR){document.getElementById('ms').textContent='Usa Safari en iPhone';return;}
   rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang='es-ES';
-  rec.onstart=function(){on=true;document.getElementById('lb').textContent='⏹ Detener';document.getElementById('lb').className='btn btns';document.getElementById('ms').textContent='🎙 Escuchando...';document.getElementById('ms').className='mstat on';document.getElementById('dot').className='dot on';document.getElementById('tb').innerHTML='';};
+  rec.onstart=function(){on=true;document.getElementById('lb').textContent='Detener';document.getElementById('lb').className='btn btns';document.getElementById('ms').textContent='Escuchando...';document.getElementById('ms').className='mstat on';document.getElementById('dot').className='dot on';document.getElementById('tb').innerHTML='';};
   rec.onresult=function(e){var interim='',final='';for(var i=e.resultIndex;i<e.results.length;i++){var t=e.results[i][0].transcript;if(e.results[i].isFinal){final+=t+' ';}else{interim+=t;}}if(final){full+=final;pend+=final;buf.push(final.trim());if(buf.length>15)buf.shift();check(pend);}var disp=full.slice(-300);document.getElementById('tb').innerHTML='<span>'+disp+'</span><span class="live"> '+interim+'</span>';document.getElementById('tb').scrollTop=9999;};
-  rec.onerror=function(e){if(e.error==='no-speech')return;};
+  rec.onerror=function(e){if(e.error==='no-speech')return;document.getElementById('ms').textContent='Error: '+e.error+' — usa Safari';};
   rec.onend=function(){if(on){setTimeout(function(){try{rec.start();}catch(e){}},300);}};
   rec.start();
 }
 
-function stop2(){on=false;if(rec){try{rec.stop();}catch(e){}rec=null;}document.getElementById('lb').textContent='🎙 Empezar a escuchar';document.getElementById('lb').className='btn btnp';document.getElementById('ms').textContent='Microfono pausado';document.getElementById('ms').className='mstat';document.getElementById('dot').className='dot';}
+function stop2(){on=false;if(rec){try{rec.stop();}catch(e){}rec=null;}document.getElementById('lb').textContent='Empezar a escuchar';document.getElementById('lb').className='btn btnp';document.getElementById('ms').textContent='Microfono pausado';document.getElementById('ms').className='mstat';document.getElementById('dot').className='dot';}
 
 function check(text){var low=text.toLowerCase();var hit=kws.some(function(kw){return low.indexOf(kw)>=0;});if(!hit)return;clearTimeout(dtimer);dtimer=setTimeout(function(){var ctx=buf.join(' ');pend='';claude(ctx);},8000);}
 
 function claude(ctx){
   document.getElementById('dot').className='dot busy';
-  var prompt='Analiza este fragmento de clase. Si el profesor asigna tarea/trabajo/presentacion responde:
-TAREA_DETECTADA
-Que se pide: ...
-Formato: ...
-Fecha: ...
-Requisitos: ...
+  var p='Eres un asistente que analiza transcripciones de clases.
 
-Si NO hay tarea responde solo: NO_TAREA
+Analiza este fragmento y determina si el profesor asigna una tarea, trabajo o presentacion.
+
+Si SI hay tarea, responde EXACTAMENTE asi:
+TAREA_DETECTADA
+Que se pide: [descripcion]
+Formato: [oral/escrito/presentacion]
+Fecha: [fecha o No especificada]
+Requisitos: [detalles o Ninguno]
+
+Si NO hay tarea, responde solo: NO_TAREA
 
 Fragmento:
 "'+ctx+'"';
-  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:prompt}]})})
+  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:p}]})})
   .then(function(r){return r.json();})
   .then(function(d){var reply=(d.content&&d.content[0]&&d.content[0].text)||'';if(reply.indexOf('TAREA_DETECTADA')>=0){addCard(reply.replace('TAREA_DETECTADA','').trim());if(navigator.vibrate)navigator.vibrate([200,100,200]);}})
   .catch(function(e){console.error(e);})
-  .finally(function(){if(on)document.getElementById('dot').className='dot on';});
+  .finally(function(){document.getElementById('dot').className=on?'dot on':'dot';});
 }
 
-function addCard(content){var id=Date.now();cards.push({id:id,content:content,done:false});render();}
-function render(){var l=document.getElementById('tl');if(!cards.length){l.innerHTML='<div class="empty">Ninguna tarea aun 👂</div>';return;}l.innerHTML=cards.map(function(t){return '<div class="card '+(t.done?'done':'alert')+'"><div class="tag">'+(t.done?'✓ Confirmada':'⚠ Tarea detectada')+'</div><div class="body">'+t.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
-/g,'<br>')+'</div>'+(t.done?'':'<div class="acts"><button class="bsm ok" onclick="ok('+t.id+')">✓ Confirmar</button><button class="bsm no" onclick="no('+t.id+')">✗ Ignorar</button></div>')+'</div>';}).join('');}
+function addCard(c){var id=Date.now();cards.push({id:id,content:c,done:false});render();window.scrollTo(0,document.body.scrollHeight);}
+function render(){var l=document.getElementById('tl');if(!cards.length){l.innerHTML='<div class="empty">Ninguna tarea aun</div>';return;}l.innerHTML=cards.map(function(t){return '<div class="card '+(t.done?'done':'alert')+'"><div class="tag">'+(t.done?'Confirmada':'Tarea detectada')+'</div><div class="body">'+t.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+(t.done?'':'<div class="acts"><button class="bsm ok" onclick="ok('+t.id+')">Confirmar</button><button class="bsm no" onclick="no2('+t.id+')">Ignorar</button></div>')+'</div>';}).join('');}
 function ok(id){var t=cards.find(function(c){return c.id===id;});if(t)t.done=true;render();}
-function no(id){cards=cards.filter(function(c){return c.id!==id;});render();}
+function no2(id){cards=cards.filter(function(c){return c.id!==id;});render();}
 
-(function(){try{var s=localStorage.getItem(KEY);if(s){var c=JSON.parse(s);apiKey=c.apiKey;kws=c.kws;document.getElementById('key').value=apiKey;if(apiKey&&apiKey.length>10){document.getElementById('setup').classList.add('hidden');document.getElementById('main').classList.remove('hidden');}}}catch(e){}})();
+(function(){try{var s=localStorage.getItem(KEY);if(s){var c=JSON.parse(s);if(c.apiKey&&c.apiKey.length>10){apiKey=c.apiKey;kws=c.kws||[];document.getElementById('key').value=apiKey;document.getElementById('setup').classList.add('hidden');document.getElementById('main').classList.remove('hidden');}}}catch(e){}})();
 </script>
 </body>
 </html>
